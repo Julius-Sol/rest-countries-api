@@ -3,8 +3,10 @@ import searchIcon from './assets/search-outline.svg'
 
  
   const CountryCard = ({countryArray}) =>{
-
     const [search, setSearch] = useState('');
+    const searchFailText = <p className='dark:text-white text-3xl mt-[50%]'>No Search Found</p> ;
+
+    
 
     const handleChange = (event) =>{
       setSearch((prevSearch)=>{
@@ -12,8 +14,9 @@ import searchIcon from './assets/search-outline.svg'
       });
     } 
 
-  console.log(search)
-  const country = countryArray.map((country,index)=>{
+  const countries = search ?  countryArray.filter((el) => el.name.common.toLowerCase().includes(search.toLowerCase())) : countryArray;  
+
+  const country = countries.map((country,index)=>{
     return(
       <div key={index} className='mt-10'>
         <img src={country.flags.png} alt={country.flags.alt} className='w-full'/>
@@ -27,9 +30,9 @@ import searchIcon from './assets/search-outline.svg'
     )
     
   })
- 
+  
   return(
-    <div className='pt-6'>
+    <div className='pt-6 dark:bg-DarkBackground h-screen'>
       <label htmlFor="search" className='flex  bg-white px-5 py-2 m-auto w-[90%] shadow-[0_1px_3px_0px_rgba(133,133,133,0.2)] rounded dark:bg-DarkElement dark:text-white'>
           <img src={searchIcon} alt="glass" className='w-4 ml-2 dark:filter dark:invert'/>
           <input type="text" name="search" id="search" placeholder='Search for a country...' 
@@ -39,7 +42,7 @@ import searchIcon from './assets/search-outline.svg'
           />
         </label>
       <div className='flex flex-col m-auto w-[70%] justify-center items-center'>
-        {country}
+        {country <= 0 ? searchFailText : country }
       </div>
     </div>
   )
