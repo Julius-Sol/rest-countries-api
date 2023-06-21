@@ -1,8 +1,18 @@
 import { useState } from 'react';
+import searchIcon from './assets/search-outline.svg'
 
+ 
+  const CountryCard = ({countryArray}) =>{
 
+    const [search, setSearch] = useState('');
 
-const CountryCard = ({countryArray}) =>{
+    const handleChange = (event) =>{
+      setSearch((prevSearch)=>{
+        return event.target.value;
+      });
+    } 
+
+  console.log(search)
   const country = countryArray.map((country,index)=>{
     return(
       <div key={index} className='mt-10'>
@@ -19,11 +29,19 @@ const CountryCard = ({countryArray}) =>{
   })
  
   return(
-    <>
+    <div className='pt-6'>
+      <label htmlFor="search" className='flex  bg-white px-5 py-2 m-auto w-[90%] shadow-[0_1px_3px_0px_rgba(133,133,133,0.2)] rounded dark:bg-DarkElement dark:text-white'>
+          <img src={searchIcon} alt="glass" className='w-4 ml-2 dark:filter dark:invert'/>
+          <input type="text" name="search" id="search" placeholder='Search for a country...' 
+          className='w-full pl-5 focus:outline-none dark:bg-DarkElement dark:text-white'
+          value={search}
+          onChange={handleChange}
+          />
+        </label>
       <div className='flex flex-col m-auto w-[70%] justify-center items-center'>
         {country}
       </div>
-    </>
+    </div>
   )
 };
 
