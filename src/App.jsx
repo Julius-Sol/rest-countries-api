@@ -31,9 +31,9 @@ function App() {
   },[])
 
   return (
-    <main className={darkMode ? 'dark': ''}>
+    <main className={darkMode ? 'dark ': ''}>
       <Navigation toggleDark={ToggleDarkMode}></Navigation>
-      <section className='bg-LightBackground font-nunito-sans dark:bg-DarkBackground '>
+      <section className='bg-LightBackground font-nunito-sans dark:bg-DarkBackground'>
         <CountryCard countryArray={countryArray}></CountryCard>
       </section>
     </main>
