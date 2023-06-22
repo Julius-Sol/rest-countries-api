@@ -11,6 +11,11 @@ function App() {
 
   const ToggleDarkMode = ()=>{
     setDarkMode((prevElement)=>{return !prevElement});
+    if(darkMode){
+      document.body.classList.remove('dark');
+    }else{
+      document.body.classList.add('dark');
+    }
   }
 
   useEffect(()=>{
@@ -31,9 +36,9 @@ function App() {
   },[])
 
   return (
-    <main className={darkMode ? 'dark ': ''}>
+    <main className='mb-20'>
       <Navigation toggleDark={ToggleDarkMode}></Navigation>
-      <section className='bg-LightBackground font-nunito-sans dark:bg-DarkBackground'>
+      <section className='font-nunito-sans max-w-[1440px] m-auto'>
         <CountryCard countryArray={countryArray}></CountryCard>
       </section>
     </main>
