@@ -8,25 +8,57 @@ import backArrow from './assets/arrow-back-outline.svg';
     const [filter, setFilter] = useState('');
     const [hideDrop, setHideDrop] = useState(true);
     const [hideAll, setHideAll] = useState(false);
+    const [indvidualCountryTitle, setIndvidualCountryTitle] = useState('');
     const searchFailText = <p className='dark:text-white text-3xl mt-5'>No Search Found</p> ;
     let country = [] ;
 
-    //Function to change hideAll state to False.
+    //Function to change hideAll state to True.
       const UnHideAll = () =>{
         setHideAll(()=>true);
       } 
 
+    //Function to change hideAll state to false.  
       const HideAll = () =>{
         setHideAll(()=>false);
       } 
-
+  
     //Function to handle when country card is clicked.
     const CountryClick = (event)=> {
       let countryTitle = event.currentTarget.children[1].children[0].textContent.toLowerCase();
-      let countryInfo = countryArray.filter((element)=>element.name.common.toLowerCase().includes(countryTitle));
-      console.log(countryInfo);
+      setIndvidualCountryTitle(()=>countryTitle)
       UnHideAll();
     }
+
+    //Function to map indivual country information
+    const CountryInfoPageFactory = (countryInfo) =>{
+      return(
+        countryInfo.map((country,index)=>{
+          console.log(country);
+          return(
+            <div key={index} className='w-full mt-16'>
+              <img src={country.flags.png} alt={country.flags.alt} className='w-full md:h-[150px] md:w-[300px]'/>
+              <div>
+                <div className='flex flex-col dark:text-white mt-5 gap-2'>
+                  <h1 className='font-bold mb-3 text-lg'>{country.name.common}</h1>
+                  <div className='flex flex-col gap-3'>
+                    <p className='text-[.9rem]'><span className='font-semibold'>Native Name:</span>test</p>
+                    <p className='text-[.9rem]'><span className='font-semibold '>Population:</span> {country.population.toLocaleString("en-US")}</p>
+                    <p className='text-[.9rem]'><span className='font-semibold'>Region:</span> {country.region}</p>
+                    <p className='text-[.9rem]'><span className='font-semibold'>Sub Region:</span> {country.subregion}</p>
+                    <p className='text-[.9rem]'><span className='font-semibold'>Captial:</span> {country.capital}</p>
+                  </div>
+                </div>
+                <div className='flex flex-col dark:text-white mt-5 gap-2'>
+                  <p className='text-[.9rem]'><span className='font-semibold'>Top Level Domain:</span> {country.tld[0]}</p>
+                  <p className='text-[.9rem]'><span className='font-semibold'>Currencies:</span> {'test'}</p>
+                </div>
+              </div>
+            </div>
+          )
+        })
+      )
+    }
+
 
     // Function to unhide the filter dropmenue
     const unhideDrop = () => {
@@ -72,10 +104,13 @@ import backArrow from './assets/arrow-back-outline.svg';
   const countries = search ?  filteredCountries.filter((el) => el.name.common.toLowerCase().includes(search.toLowerCase())) : filteredCountries;  
   country = CardFactory(countries);
 
+  let indiviualCountryArray = [];
+  indiviualCountryArray = filteredCountries.filter((el) => el.name.common.toLowerCase()=== indvidualCountryTitle.toLowerCase());
+  indiviualCountryArray = CountryInfoPageFactory(indiviualCountryArray);
   return(
     <div className='pt-6'>
       {hideAll ? 
-      <div className='m-auto w-[90%]'>
+      <div className='m-auto w-[90%] mt-4'>
         <div className='flex gap-2 bg-white dark:bg-DarkElement px-4 py-2 w-24 text-sm shadow-[0_2px_4px_1px_rgba(133,133,133,0.2)] hover:cursor-pointer' onClick={HideAll}>
           <img src={backArrow} alt="back-arrow" className='w-5 dark:invert' />
           <p className='dark:text-white' >Back</p>
@@ -111,9 +146,17 @@ import backArrow from './assets/arrow-back-outline.svg';
           </div>
       </div>}
         
+      {hideAll ? 
+       <div className='flex flex-col m-auto w-[85%] justify-center items-center md:flex-row md:flex-wrap md:gap-16 md:w-[100%]' >
+       {indiviualCountryArray}
+     </div>
+      : 
       <div className='flex flex-col m-auto w-[70%] justify-center items-center md:flex-row md:flex-wrap md:gap-16 md:w-[100%]' >
-        {country <= 0 ? searchFailText : (hideAll?  '' : country) }
+        {country <= 0 ? searchFailText : country }
       </div>
+      
+      }
+      
     </div>
   )
 };
