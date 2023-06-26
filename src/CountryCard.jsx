@@ -29,28 +29,74 @@ import backArrow from './assets/arrow-back-outline.svg';
       UnHideAll();
     }
 
+    const BorderClick = (event)=>{
+      let countryTitle = event.target.textContent; 
+      setIndvidualCountryTitle(()=>countryTitle);
+      UnHideAll();
+    }
+
     //Function to map indivual country information
     const CountryInfoPageFactory = (countryInfo) =>{
       return(
         countryInfo.map((country,index)=>{
-          console.log(country);
           return(
-            <div key={index} className='w-full mt-16'>
-              <img src={country.flags.png} alt={country.flags.alt} className='w-full md:h-[150px] md:w-[300px]'/>
-              <div>
-                <div className='flex flex-col dark:text-white mt-5 gap-2'>
-                  <h1 className='font-bold mb-3 text-lg'>{country.name.common}</h1>
-                  <div className='flex flex-col gap-3'>
-                    <p className='text-[.9rem]'><span className='font-semibold'>Native Name:</span>test</p>
-                    <p className='text-[.9rem]'><span className='font-semibold '>Population:</span> {country.population.toLocaleString("en-US")}</p>
-                    <p className='text-[.9rem]'><span className='font-semibold'>Region:</span> {country.region}</p>
-                    <p className='text-[.9rem]'><span className='font-semibold'>Sub Region:</span> {country.subregion}</p>
-                    <p className='text-[.9rem]'><span className='font-semibold'>Captial:</span> {country.capital}</p>
+            <div key={index} className='w-full mt-16 dark:text-white  md:flex md:gap-40 md:m-auto md:w-[90%] md:max-w-[1200] md:mt-16'>
+              <img src={country.flags.png} alt={country.flags.alt} className='w-full lg:w-[450px] h-[200px] sm:h-[300px]  lg:h-[400px] min-[768px]:h-[200px] min-[768px]:w-[250px]'/>
+              <div className='md:flex md:flex-col gap-12'>
+                <div className='md:flex md:gap-32'>
+                  <div className='flex flex-col  mt-12 gap-2 md:mt-0 '>
+                    <h1 className='font-bold mb-3 text-lg'>{country.name.common}</h1>
+                    <div className='flex flex-col gap-3'>
+                      <p className='text-[.9rem]'><span className='font-semibold'>Native Name: </span>
+                      {
+                        Object.keys(country.name.nativeName).map((keyName, i)=>{
+                          return(
+                             <span className=""  key={i}>{ (i ? ', ' : '') + country.name.nativeName[keyName].common }</span>
+                          )
+                        })
+                      }</p>
+                      <p className='text-[.9rem]'><span className='font-semibold '>Population:</span> {country.population.toLocaleString("en-US")}</p>
+                      <p className='text-[.9rem]'><span className='font-semibold'>Region:</span> {country.region}</p>
+                      <p className='text-[.9rem]'><span className='font-semibold'>Sub Region:</span> {country.subregion}</p>
+                      <p className='text-[.9rem]'><span className='font-semibold'>Captial:</span> {country.capital}</p>
+                    </div>
+                  </div>
+                  <div className='flex flex-col dark:text-white mt-12 gap-2'>
+                    <p className='text-[.9rem]'><span className='font-semibold'>Top Level Domain:</span> {country.tld[0]}</p>
+                    <p className='text-[.9rem]'><span className='font-semibold'>Currencies: </span>
+                    {
+                        Object.keys(country.currencies).map((keyName, i)=>{
+                            return(
+                                    <span className=""  key={i}>{ (i ? ', ' : '') + country.currencies[keyName].name }</span>
+                                  )
+                        })
+                
+                    }</p>
+                    <p className='text-[.9rem]'><span className='font-semibold'>Languages: </span>
+                    {
+                        Object.keys(country.languages).map((keyName, i)=>{
+                          return(
+                                 <span className=""  key={i}>{ (i ? ', ' : '') + country.languages[keyName] }</span>
+                                )
+                         })
+                
+                    }</p>
                   </div>
                 </div>
-                <div className='flex flex-col dark:text-white mt-5 gap-2'>
-                  <p className='text-[.9rem]'><span className='font-semibold'>Top Level Domain:</span> {country.tld[0]}</p>
-                  <p className='text-[.9rem]'><span className='font-semibold'>Currencies:</span> {'test'}</p>
+                <div className='flex flex-col mt-5'>
+                  <h2 className='font-md font-semibold'>Border Countries:</h2>
+                  <div className='flex gap-3 mt-4 flex-wrap'>
+                    {
+                      Object.keys(country.borders).map((keyName, i)=>{
+                        return(
+                               <p className='bg-white dark:bg-DarkElement px-4 py-2 hover:cursor-pointer text-xs rounded-sm shadow-[0_2px_4px_1px_rgba(133,133,133,0.2)]' onClick={BorderClick} key={i}>
+                               { countryArray.find((el) => el.cca3.toLowerCase() === country.borders[keyName].toLowerCase()).name.common
+                               }</p>
+                              )
+                       })
+                    }
+                
+                  </div>
                 </div>
               </div>
             </div>
@@ -110,7 +156,7 @@ import backArrow from './assets/arrow-back-outline.svg';
   return(
     <div className='pt-6'>
       {hideAll ? 
-      <div className='m-auto w-[90%] mt-4'>
+      <div className='m-auto w-[90%] mt-2'>
         <div className='flex gap-2 bg-white dark:bg-DarkElement px-4 py-2 w-24 text-sm shadow-[0_2px_4px_1px_rgba(133,133,133,0.2)] hover:cursor-pointer' onClick={HideAll}>
           <img src={backArrow} alt="back-arrow" className='w-5 dark:invert' />
           <p className='dark:text-white' >Back</p>
