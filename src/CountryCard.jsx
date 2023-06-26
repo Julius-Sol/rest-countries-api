@@ -87,6 +87,7 @@ import backArrow from './assets/arrow-back-outline.svg';
                   <h2 className='font-md font-semibold'>Border Countries:</h2>
                   <div className='flex gap-3 mt-4 flex-wrap'>
                     {
+                      country.borders != undefined ?
                       Object.keys(country.borders).map((keyName, i)=>{
                         return(
                                <p className='bg-white dark:bg-DarkElement px-4 py-2 hover:cursor-pointer text-xs rounded-sm shadow-[0_2px_4px_1px_rgba(133,133,133,0.2)]' onClick={BorderClick} key={i}>
@@ -94,6 +95,9 @@ import backArrow from './assets/arrow-back-outline.svg';
                                }</p>
                               )
                        })
+                       :
+                       <p className='bg-white dark:bg-DarkElement px-4 py-2 text-xs rounded-sm shadow-[0_2px_4px_1px_rgba(133,133,133,0.2)]'>No Bordering Country</p>
+                       
                     }
                 
                   </div>
