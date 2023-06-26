@@ -179,7 +179,7 @@ import backArrow from './assets/arrow-back-outline.svg';
           <div className='relative m-auto w-[90%] mt-8 mb-5 md:w-auto md:m-0 md:py-8'>
             <div className='flex justify-between gap-5 bg-white dark:bg-DarkElement dark:text-white w-48 py-2 px-4 hover:cursor-pointer md:py-4 md:px-6' onClick={unhideDrop}>
               <p>Filter by Region</p>
-              <img src={chevronIcon} alt="chevron icon" className='w-3' />
+              <img src={chevronIcon} alt="chevron icon" className='w-3 dark:invert' />
             </div>
             <div className={hideDrop ? 'hidden' : 'absolute mt-1 flex flex-col bg-white dark:bg-DarkElement dark:text-white py-2 '}>
               <button className='text-left w-48 bg-white dark:bg-DarkElement dark:text-white px-4 py-1 text-sm' value='' onClick={handleFilterClick}>All</button>
