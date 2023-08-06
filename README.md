@@ -27,16 +27,16 @@ Users should be able to:
 
 ### Screenshot
 
-Dektop All Countries
+
 ![](./screenshots/desktop_countries_dark.png)
 
-Dektop Single Countries
+
 ![](./screenshots/desktop_single_countries.png)
 
-Mobile All Countries
+
 ![](./screenshots/mobile_%20countries_dark.png)
 
-Dektop Single Countries
+
 ![](./screenshots/mobile_single_countries.png)
 
 
